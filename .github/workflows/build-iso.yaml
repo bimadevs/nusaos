@@ -22,11 +22,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Validate profile
-        run: |
-          bash archiso-os-builder/scripts/validate_profile.sh .
-          echo "✅ Profile valid"
-
       - name: Build ISO via Docker
         run: |
           docker run --rm --privileged \
@@ -37,6 +32,9 @@ jobs:
                 squashfs-tools libisoburn dosfstools mtools \
                 grub syslinux
               cd /build
+              echo '=== Validating profile ==='
+              bash archiso-os-builder/scripts/validate_profile.sh .
+              echo '=== Building ISO ==='
               mkarchiso -v -w /tmp/work -o /build/out .
               chmod -R a+rwx /build/out
             "
