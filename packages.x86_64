@@ -1,0 +1,193 @@
+# NusaOS - Package List
+# Baris dengan # adalah komentar, diabaikan oleh pacstrap
+# Perhatian: group names (xfce4, xfce4-goodies) TIDAK work dengan pacstrap!
+# Semua package harus nama package individual.
+
+# --- 1. Base System ---
+base
+base-devel
+linux
+linux-headers
+linux-firmware
+amd-ucode
+intel-ucode
+mkinitcpio
+mkinitcpio-archiso
+busybox
+
+# --- 2. System Utilities ---
+bash
+bash-completion
+coreutils
+diffutils
+file
+findutils
+gawk
+grep
+gzip
+less
+procps-ng
+psmisc
+sed
+tar
+util-linux
+which
+
+# --- 3. Filesystem Tools ---
+dosfstools
+e2fsprogs
+exfatprogs
+f2fs-tools
+btrfs-progs
+xfsprogs
+ntfs-3g
+squashfs-tools
+fakeroot
+
+# --- 4. Boot & Firmware ---
+grub
+syslinux
+efibootmgr
+edk2-shell
+
+# --- 5. Networking ---
+networkmanager
+network-manager-applet
+iwd
+openssh
+curl
+wget
+rate-mirrors
+wireless-regdb
+dhcpcd
+rsync
+
+# --- 6. Audio (PipeWire) ---
+pipewire
+pipewire-audio
+pipewire-pulse
+pipewire-alsa
+wireplumber
+sof-firmware
+pavucontrol
+alsa-utils
+
+# --- 7. Bluetooth ---
+bluez
+bluez-utils
+blueman
+
+# --- 8. Xorg & Display ---
+xorg-server
+xorg-xrandr
+xorg-xinput
+xf86-input-libinput
+mesa
+vulkan-icd-loader
+lightdm
+lightdm-gtk-greeter
+
+# --- 9. Desktop (XFCE) ---
+# ex-xfce4 group (expanded, no group names!)
+exo
+garcon
+libxfce4ui
+libxfce4util
+thunar
+thunar-volman
+tumbler
+xfce4-appfinder
+xfce4-panel
+xfce4-power-manager
+xfce4-session
+xfce4-settings
+xfce4-terminal
+xfconf
+xfdesktop
+xfwm4
+
+# --- 10. XFCE Goodies (selected) ---
+mousepad
+ristretto
+xfce4-screenshooter
+xfce4-taskmanager
+xfce4-whiskermenu-plugin
+xfce4-notifyd
+xfce4-pulseaudio-plugin
+xfce4-clipman-plugin
+xfce4-screensaver
+thunar-archive-plugin
+thunar-media-tags-plugin
+
+# --- 11. Icons & Themes ---
+papirus-icon-theme
+hicolor-icon-theme
+adwaita-icon-theme
+breeze-cursors
+
+# --- 12. Fonts ---
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+ttf-liberation
+ttf-jetbrains-mono-nerd
+
+# --- 13. Applications ---
+firefox
+mpv
+evince
+file-roller
+kitty
+btop
+fastfetch
+tmux
+git
+neovim
+nano
+
+# --- 14. Portal & Desktop Integration ---
+xdg-utils
+xdg-user-dirs
+xdg-desktop-portal
+xdg-desktop-portal-gtk
+polkit-gnome
+gnome-keyring
+gvfs
+gvfs-mtp
+gvfs-gphoto2
+gvfs-smb
+udisks2
+
+# --- 15. Power Management ---
+tlp
+acpi
+acpid
+upower
+
+# --- 16. Shell & Config ---
+zsh
+zsh-syntax-highlighting
+zsh-autosuggestions
+
+# --- 17. Hardware Detection ---
+lshw
+dmidecode
+smartmontools
+inxi
+
+# --- 18. System Tools ---
+sudo
+arch-install-scripts
+archinstall
+man-db
+man-pages
+pacman-contrib
+
+# --- 19. Compression ---
+zip
+unzip
+7zip
+unrar
+
+# --- 20. Localization ---
+iana-etc

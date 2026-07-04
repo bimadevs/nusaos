@@ -1,0 +1,14 @@
+## Arch Linux mirrorlist
+## Generated for NusaOS
+## Indonesia mirrors (primary)
+
+Server = https://kebo.pens.ac.id/archlinux/$repo/os/$arch
+Server = https://kartolo.sby.datautama.net.id/archlinux/$repo/os/$arch
+Server = https://mirror.labkom.id/archlinux/$repo/os/$arch
+Server = https://archlinux.cdn.ukamelo.com/$repo/os/$arch
+
+## Singapore (fallback)
+Server = https://mirror.xenyth.net/archlinux/$repo/os/$arch
+
+## Global (fallback)
+Server = https://mirrors.kernel.org/archlinux/$repo/os/$arch

@@ -1,0 +1,11 @@
+NAME="NusaOS"
+PRETTY_NAME="NusaOS 1.0 (Arch-based)"
+ID=nusaos
+ID_LIKE=arch
+VERSION="1.0"
+VERSION_ID="1.0"
+VERSION_CODENAME=""
+ANSI_COLOR="1;36"
+HOME_URL="https://github.com/bimadevs/nusaos"
+BUG_REPORT_URL="https://github.com/bimadevs/nusaos/issues"
+LOGO=nusaos

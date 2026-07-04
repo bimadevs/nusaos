@@ -1,0 +1,14 @@
+# Build artifacts
+out/
+*.iso
+
+# AI agent session data
+.omo/
+.codegraph
+
+# OpenCode skills (separate repo)
+.opencode/
+
+# Documentation drafts (root-level *.md, except README)
+/*.md
+!README.md

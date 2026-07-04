@@ -1,0 +1,98 @@
+name: Build NusaOS ISO
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'profiledef.sh'
+      - 'packages.x86_64'
+      - 'pacman.conf'
+      - 'bootstrap_packages'
+      - 'airootfs/**'
+      - 'efiboot/**'
+      - 'syslinux/**'
+      - '.github/workflows/build-iso.yaml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Validate profile
+        run: |
+          bash archiso-os-builder/scripts/validate_profile.sh .
+          echo "✅ Profile valid"
+
+      - name: Build ISO via Docker
+        run: |
+          docker run --rm --privileged \
+            -v "${{ github.workspace }}:/build" \
+            archlinux:latest \
+            bash -c "
+              pacman -Syu --noconfirm archiso arch-install-scripts \
+                squashfs-tools libisoburn dosfstools mtools \
+                grub syslinux
+              cd /build
+              mkarchiso -v -w /tmp/work -o /build/out .
+              chmod -R a+rwx /build/out
+            "
+
+      - name: Verify ISO exists
+        run: |
+          ISO_FILE=$(ls out/*.iso 2>/dev/null | head -1)
+          if [ -z "$ISO_FILE" ]; then
+            echo "❌ ISO build gagal. Tidak ada file .iso di out/"
+            exit 1
+          fi
+          echo "✅ ISO built: $(basename $ISO_FILE) ($(du -h $ISO_FILE | cut -f1))"
+
+      - name: Install rclone
+        run: |
+          curl -s https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "${{ secrets.RCLONE_CONFIG_B64 }}" | base64 -d > ~/.config/rclone/rclone.conf
+          echo "✅ rclone config restored from base64"
+
+      - name: Upload to Google Drive
+        run: |
+          ISO_FILE=$(ls out/*.iso | head -1)
+          rclone copy "$ISO_FILE" drive:/NusaOS/ \
+            -v --stats=30s
+          echo "✅ Uploaded to Google Drive: NusaOS/$(basename $ISO_FILE)"
+
+      - name: Upload SHA256 checksum
+        run: |
+          ISO_FILE=$(ls out/*.iso | head -1)
+          sha256sum "$ISO_FILE" > "${ISO_FILE}.sha256"
+          rclone copy "${ISO_FILE}.sha256" drive:/NusaOS/ -v
+          echo "✅ SHA256 checksum uploaded"
+
+      - name: Upload to GitHub Release (tag only)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            out/*.iso
+            out/*.sha256
+          make_latest: true
+          generate_release_notes: true
+
+      - name: Summary
+        run: |
+          ISO_FILE=$(ls out/*.iso | head -1)
+          echo "## Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **ISO**: $(basename $ISO_FILE)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Size**: $(du -h $ISO_FILE | cut -f1)" >> $GITHUB_STEP_SUMMARY
+          echo "- **SHA256**: $(sha256sum $ISO_FILE | cut -d' ' -f1)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Google Drive**: [NusaOS folder](https://drive.google.com/drive/folders/YOUR_FOLDER_ID)" >> $GITHUB_STEP_SUMMARY
+
+      - name: Cleanup
+        if: always()
+        run: docker system prune -f
