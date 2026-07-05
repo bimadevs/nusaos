@@ -11,9 +11,6 @@ linux-headers
 linux-firmware
 amd-ucode
 intel-ucode
-aic94xx-firmware
-wd719x-firmware
-ast-firmware
 mkinitcpio
 mkinitcpio-archiso
 busybox
