@@ -2,15 +2,14 @@
 #
 # customize_airootfs.sh — runs inside mkarchiso build chroot
 # after all packages installed. Delete-on-success.
-# See references/ for grokf-of pattern.
 #
 set -euo pipefail
 
 # === Users ===
 # Plain chpasswd — NO -e flag (which expects a precomputed hash)
-useradd -m -G wheel,audio,video,storage,power -s /bin/zsh USERNAME
-echo 'USERNAME:CHANGE_ME' | chpasswd
-echo 'root:CHANGE_ME' | chpasswd
+useradd -m -G wheel,audio,video,storage,power -s /bin/zsh nusa
+echo 'nusa:live' | chpasswd
+echo 'root:live' | chpasswd
 
 # === sudoers: NOPASSWD for live session ===
 cat > /etc/sudoers.d/10-wheel-live <<'EOF'
@@ -18,43 +17,44 @@ cat > /etc/sudoers.d/10-wheel-live <<'EOF'
 EOF
 chmod 440 /etc/sudoers.d/10-wheel-live
 
-# === Enable services ===
-systemctl enable lightdm.service
-systemctl enable NetworkManager.service
-
-# === Locale (also needs pacman hook to trigger locale-gen first time) ===
+# === Locale ===
 locale-gen
 
 # === Display manager autologin ===
 mkdir -p /etc/lightdm
 cat > /etc/lightdm/lightdm.conf <<'EOF'
 [Seat:*]
-autologin-user=USERNAME
-autologin-user-timeout=0
 greeter-session=lightdm-gtk-greeter
 user-session=xfce
+autologin-user=nusa
+autologin-user-timeout=0
+autologin-session=xfce.desktop
+
+[LightDM]
+logind-check-graphical=true
 EOF
 
 # === User dotfiles ===
-mkdir -p /home/USERNAME/.config/gtk-3.0
-cat > /home/USERNAME/.config/gtk-3.0/settings.ini <<'EOF'
+mkdir -p /home/nusa/.config/gtk-3.0
+cat > /home/nusa/.config/gtk-3.0/settings.ini <<'EOF'
 [Settings]
-gtk-theme-name=Adwaita
-gtk-icon-theme-name=Papirus
+gtk-theme-name=Arc-Dark
+gtk-icon-theme-name=Papirus-Dark
 EOF
 
-# /etc/skel is the cleanest path for new-user defaults, but here
-# the user is already created by useradd with default /etc/skel, so
-# just chown after writing.
-chown -R USERNAME:USERNAME /home/USERNAME
+chown -R nusa:nusa /home/nusa
 
 # === Welcome message ===
 cat > /etc/motd <<'EOF'
 
-  ==================================
-       BimaXOS — Live ISO
-  Arch Linux + XFCE x11
-  Login: USERNAME / (see docs)
-  ==================================
+  ╔═══════════════════════════════════════╗
+  ║         NusaOS 1.0 — Live ISO         ║
+  ║     Arch Linux + XFCE x11             ║
+  ║     User: nusa / Password: live       ║
+  ╚═══════════════════════════════════════╝
+
+  Install NusaOS: sudo archinstall
+  Update mirror:  sudo rate-mirrors --protocol https --country Indonesia
+  Help:           https://github.com/bimadevs/nusaos
 
 EOF
