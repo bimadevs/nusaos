@@ -1,0 +1,4 @@
+/* NusaOS — wheel group sudo without password prompt for most actions */
+polkit.addAdminRule(function(action, subject) {
+    return ["unix-group:wheel"];
+});
