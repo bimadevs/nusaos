@@ -11,6 +11,9 @@ linux-headers
 linux-firmware
 amd-ucode
 intel-ucode
+aic94xx-firmware
+wd719x-firmware
+ast-firmware
 mkinitcpio
 mkinitcpio-archiso
 busybox
@@ -191,3 +194,24 @@ unrar
 
 # --- 20. Localization ---
 iana-etc
+
+# --- 21. Printing ---
+cups
+cups-pdf
+hplip
+print-manager
+
+# --- 22. Firewall ---
+ufw
+
+# --- 23. Media Codecs ---
+gst-plugins-base
+gst-plugins-good
+gst-plugins-bad
+gst-libav
+
+# --- 24. Backup ---
+timeshift
+
+# --- 25. File Sharing ---
+samba
