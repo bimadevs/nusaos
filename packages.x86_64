@@ -77,47 +77,39 @@ bluez
 bluez-utils
 blueman
 
-# --- 8. Xorg & Display ---
-xorg-server
-xorg-xrandr
-xorg-xinput
-xf86-input-libinput
+# --- 8. Display Server ---
 mesa
 vulkan-icd-loader
-lightdm
-lightdm-gtk-greeter
+xorg-xwayland
 
-# --- 9. Desktop (XFCE) ---
-# ex-xfce4 group (expanded, no group names!)
-exo
-garcon
-libxfce4ui
-libxfce4util
-thunar
-thunar-volman
-tumbler
-xfce4-appfinder
-xfce4-panel
-xfce4-power-manager
-xfce4-session
-xfce4-settings
-xfce4-terminal
-xfconf
-xfdesktop
-xfwm4
+# --- 9. Desktop (Hyprland) ---
+# Wayland compositor & core
+hyprland
+hyprpaper
+hyprlock
+hypridle
+xdg-desktop-portal-hyprland
 
-# --- 10. XFCE Goodies (selected) ---
-mousepad
-ristretto
-xfce4-screenshooter
-xfce4-taskmanager
-xfce4-whiskermenu-plugin
-xfce4-notifyd
-xfce4-pulseaudio-plugin
-xfce4-clipman-plugin
-xfce4-screensaver
-thunar-archive-plugin
-thunar-media-tags-plugin
+# Wayland ecosystem
+waybar
+wofi
+dunst
+wl-clipboard
+grim
+slurp
+
+# Session & auth
+greetd
+greetd-tuigreet
+polkit-kde-agent
+
+# Qt Wayland support
+qt5-wayland
+qt6-wayland
+
+# Utilities
+brightnessctl
+playerctl
 
 # --- 11. Icons & Themes ---
 papirus-icon-theme
@@ -138,6 +130,9 @@ mpv
 evince
 file-roller
 kitty
+thunar
+thunar-volman
+tumbler
 btop
 fastfetch
 tmux

@@ -25,12 +25,11 @@ airootfs/
 │   ├── NetworkManager/conf.d/
 │   │   ├── wifi_backend.conf → iwd backend ✅
 │   │   └── nusaos.conf      → dhcp=internal ✅
-│   ├── lightdm/
-│   │   ├── lightdm.conf           → autologin nusa, XFCE session ✅
-│   │   └── lightdm-gtk-greeter.conf → Arc-Dark theme ✅
+│   ├── greetd/
+│   │   └── config.toml           → autologin nusa, Hyprland session ✅
 │   ├── systemd/
 │   │   ├── multi-user.target.wants/ → NM, bluetooth, tlp, acpid, upower ✅
-│   │   ├── display-manager.target.wants/lightdm.service → LightDM ✅
+│   │   ├── display-manager.service → greetd.service ✅
 │   │   ├── getty@tty1.service.d/autologin.conf → root auto-login
 │   │   ├── journald.conf.d/volatile.conf → volatile journal 50M ✅
 │   │   └── sockets.target.wants/ → pcscd.socket
@@ -38,6 +37,7 @@ airootfs/
 │   │   ├── .bashrc         → bash aliases ✅
 │   │   ├── .zshrc          → zsh with syntax highlighting ✅
 │   │   └── .config/
+│   │       ├── hypr/hyprland.conf → Hyprland config ✅
 │   │       ├── user-dirs.dirs     → XDG dirs ✅
 │   │       └── user-dirs.locale   → id_ID ✅
 │   └── modules-load.d/    → loop, squashfs, overlay
@@ -54,7 +54,7 @@ airootfs/
 |---------|--------|---------|
 | NetworkManager.service | multi-user | Network management |
 | bluetooth.service | multi-user | Bluetooth |
-| lightdm.service | display-manager | Login manager |
+| greetd.service | display-manager | Wayland login manager |
 | tlp.service | multi-user | Power management |
 | acpid.service | multi-user | ACPI events |
 | upower.service | multi-user | Power monitoring |
@@ -78,6 +78,8 @@ airootfs/
 ## NOTES
 
 1. All releng cruft removed: cloud-init, HV/VMware/VBox, systemd-networkd, .network files.
-2. LightDM > SDDM: GTK-based, shared deps with XFCE.
-3. NM + iwd backend, not wpa_supplicant.
-4. Journal volatile to reduce USB writes.
+2. greetd + tuigreet sebagai display manager Wayland-native. Autologin user nusa langsung ke Hyprland.
+3. XFCE dihapus v1.0 — diganti Hyprland Wayland compositor.
+4. NM + iwd backend, not wpa_supplicant.
+5. Journal volatile to reduce USB writes.
+6. Hyprland config live ada di /etc/skel/.config/hypr/hyprland.conf — di-copy ke /home/nusa/ oleh customize_airootfs.sh.

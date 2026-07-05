@@ -1,0 +1,10 @@
+[terminal]
+vt = 1
+
+[default_session]
+user = "nusa"
+command = "/usr/bin/Hyprland"
+
+[initial_session]
+user = "nusa"
+command = "/usr/bin/Hyprland"

@@ -20,26 +20,28 @@ chmod 440 /etc/sudoers.d/10-wheel-live
 # === Locale ===
 locale-gen
 
-# === Display manager autologin ===
-mkdir -p /etc/lightdm
-cat > /etc/lightdm/lightdm.conf <<'EOF'
-[Seat:*]
-greeter-session=lightdm-gtk-greeter
-user-session=xfce
-autologin-user=nusa
-autologin-user-timeout=0
-autologin-session=xfce.desktop
+# === Display manager (greetd) ===
+mkdir -p /etc/greetd
+cat > /etc/greetd/config.toml <<'EOF'
+[terminal]
+vt = 1
 
-[LightDM]
-logind-check-graphical=true
+[default_session]
+user = "nusa"
+command = "/usr/bin/Hyprland"
+
+[initial_session]
+user = "nusa"
+command = "/usr/bin/Hyprland"
 EOF
 
 # === User dotfiles ===
 mkdir -p /home/nusa/.config/gtk-3.0
 cat > /home/nusa/.config/gtk-3.0/settings.ini <<'EOF'
 [Settings]
-gtk-theme-name=Arc-Dark
+gtk-theme-name=Adwaita-dark
 gtk-icon-theme-name=Papirus-Dark
+gtk-font-name=Noto Sans, 10
 EOF
 
 chown -R nusa:nusa /home/nusa
@@ -47,11 +49,11 @@ chown -R nusa:nusa /home/nusa
 # === Welcome message ===
 cat > /etc/motd <<'EOF'
 
-  ╔═══════════════════════════════════════╗
-  ║         NusaOS 1.0 — Live ISO         ║
-  ║     Arch Linux + XFCE x11             ║
-  ║     User: nusa / Password: live       ║
-  ╚═══════════════════════════════════════╝
+  ╔══════════════════════════════════════════╗
+  ║         NusaOS 1.0 — Live ISO            ║
+  ║     Arch Linux + Hyprland (Wayland)      ║
+  ║     User: nusa / Password: live          ║
+  ╚══════════════════════════════════════════╝
 
   Install NusaOS: sudo archinstall
   Update mirror:  sudo rate-mirrors --protocol https --country Indonesia
