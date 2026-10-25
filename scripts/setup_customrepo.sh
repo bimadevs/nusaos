@@ -16,6 +16,22 @@ echo "================================================================"
 
 mkdir -p "${CUSTOMREPO_DIR}"
 
+run_makepkg() {
+    if [[ $EUID -eq 0 ]]; then
+        # Inside Docker or root environment, makepkg requires a non-root user
+        if ! id -u builder >/dev/null 2>&1; then
+            useradd -m -s /bin/bash builder 2>/dev/null || true
+            if [[ -d /etc/sudoers.d ]]; then
+                echo "builder ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99-builder 2>/dev/null || true
+            fi
+        fi
+        chown -R builder:builder . 2>/dev/null || true
+        su -s /bin/bash builder -c "makepkg -f --nodeps" 2>/dev/null || runuser -u nobody -- makepkg -f --nodeps
+    else
+        makepkg -f --nodeps
+    fi
+}
+
 # 1. Bangun meta-package lokal di PKGBUILDs
 for pkg in nusa-artwork nusa-configs; do
     if [[ -d "${PKGBUILDS_DIR}/${pkg}" ]]; then
@@ -24,7 +40,7 @@ for pkg in nusa-artwork nusa-configs; do
             cd "${PKGBUILDS_DIR}/${pkg}"
             if ! ls ./*.pkg.tar.zst 1>/dev/null 2>&1; then
                 echo "🔨 Mengompilasi ${pkg} via makepkg..."
-                makepkg -f --nodeps
+                run_makepkg
             fi
             echo "📋 Menyalin paket ${pkg} ke customrepo/x86_64/..."
             cp -f ./*.pkg.tar.zst "${CUSTOMREPO_DIR}/"
@@ -94,6 +110,13 @@ echo "📚 Memperbarui basis data repositori pacman (customrepo.db.tar.gz)..."
     ln -sf customrepo.db.tar.gz customrepo.db
     ln -sf customrepo.files.tar.gz customrepo.files
 )
+
+# Sesuaikan path Server di profile/pacman.conf dengan direktori saat ini
+PACMAN_CONF="${ROOT_DIR}/profile/pacman.conf"
+if [[ -f "${PACMAN_CONF}" ]]; then
+    echo "⚙️  Menyesuaikan path customrepo di ${PACMAN_CONF}..."
+    sed -i -E "s|^Server = file://.*customrepo/x86_64$|Server = file://${CUSTOMREPO_DIR}|g" "${PACMAN_CONF}"
+fi
 
 echo "================================================================"
 echo "✅ Custom Repository NusaOS berhasil diinisialisasi!"
