@@ -1,0 +1,137 @@
+/* ==============================================================================
+ * NusaOS Waybar Stylesheet
+ * Palette: Zamrud Khatulistiwa (Deep Obsidian & Emerald)
+ * ============================================================================== */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "Inter", "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: rgba(13, 17, 23, 0.85);
+    border: 1px solid rgba(0, 180, 138, 0.35);
+    border-radius: 10px;
+    color: #f0f6fc;
+}
+
+/* Tooltip */
+tooltip {
+    background: #161b22;
+    border: 1px solid #00b48a;
+    border-radius: 8px;
+}
+tooltip label {
+    color: #f0f6fc;
+    padding: 4px;
+}
+
+/* Modules Left */
+#custom-launcher {
+    background: linear-gradient(135deg, #00b48a 0%, #00e5a3 100%);
+    color: #0d1117;
+    font-weight: 700;
+    padding: 0 14px;
+    margin: 4px 6px 4px 4px;
+    border-radius: 6px;
+}
+
+#workspaces {
+    background-color: #161b22;
+    margin: 4px;
+    border-radius: 6px;
+    padding: 0 4px;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    color: #8b949e;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+#workspaces button.active {
+    color: #0d1117;
+    background-color: #00e5a3;
+    font-weight: bold;
+}
+
+#workspaces button:hover {
+    background-color: rgba(0, 180, 138, 0.2);
+    color: #f0f6fc;
+}
+
+#window {
+    color: #8b949e;
+    padding: 0 10px;
+}
+
+/* Modules Center */
+#clock {
+    background-color: #161b22;
+    color: #00e5a3;
+    padding: 0 14px;
+    margin: 4px;
+    border-radius: 6px;
+    font-weight: 600;
+    border: 1px solid rgba(0, 229, 163, 0.2);
+}
+
+/* Modules Right */
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#battery,
+#tray,
+#custom-power {
+    background-color: #161b22;
+    padding: 0 10px;
+    margin: 4px 2px;
+    border-radius: 6px;
+    color: #f0f6fc;
+}
+
+#pulseaudio {
+    color: #58a6ff;
+}
+
+#network {
+    color: #00b48a;
+}
+
+#cpu {
+    color: #bc8cff;
+}
+
+#memory {
+    color: #d29922;
+}
+
+#battery {
+    color: #00e5a3;
+}
+
+#battery.warning {
+    color: #d29922;
+}
+
+#battery.critical {
+    color: #ff7b72;
+}
+
+#custom-power {
+    background: #21262d;
+    color: #ff7b72;
+    padding: 0 12px;
+    margin-right: 4px;
+    font-size: 14px;
+}
+#custom-power:hover {
+    background: #ff7b72;
+    color: #0d1117;
+}

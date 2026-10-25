@@ -1,0 +1,29 @@
+# ==============================================================================
+# NusaOS .gitignore
+# ==============================================================================
+
+# Build output and ISO images
+out/*
+!out/.gitkeep
+*.iso
+*.iso.sha256
+
+# Archiso temporary work directories
+/tmp/archiso-work/
+work/
+
+# Customrepo compiled package archives & pacman databases (dynamically built)
+customrepo/x86_64/*
+!customrepo/x86_64/.gitkeep
+
+# PKGBUILD build artifacts
+customrepo/PKGBUILDs/*/*.pkg.tar.zst
+customrepo/PKGBUILDs/*/src/
+customrepo/PKGBUILDs/*/pkg/
+
+# System and Editor Artifacts
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.log

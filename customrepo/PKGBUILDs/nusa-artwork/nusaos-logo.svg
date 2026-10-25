@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00e5a3" />
+      <stop offset="50%" stop-color="#00b48a" />
+      <stop offset="100%" stop-color="#00664e" />
+    </linearGradient>
+    <linearGradient id="darkFacet" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0a1f18" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#00e5a3" stop-opacity="0.3" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Glowing outer diamond polygon -->
+  <polygon points="256,32 464,152 464,360 256,480 48,360 48,152" fill="#0d1117" stroke="url(#emeraldGrad)" stroke-width="12" filter="url(#glow)"/>
+
+  <!-- Inner Diamond Facets -->
+  <polygon points="256,72 424,170 256,256" fill="url(#emeraldGrad)" opacity="0.9" />
+  <polygon points="256,72 88,170 256,256" fill="url(#emeraldGrad)" opacity="0.75" />
+  <polygon points="88,170 256,256 256,440 88,342" fill="url(#darkFacet)" />
+  <polygon points="424,170 256,256 256,440 424,342" fill="url(#emeraldGrad)" opacity="0.6" />
+
+  <!-- Equator Line Motif ("Khatulistiwa") -->
+  <line x1="48" y1="256" x2="464" y2="256" stroke="#00e5a3" stroke-width="4" stroke-dasharray="12 8" opacity="0.8" />
+
+  <!-- Center Gem Core -->
+  <circle cx="256" cy="256" r="32" fill="#00e5a3" filter="url(#glow)" />
+</svg>

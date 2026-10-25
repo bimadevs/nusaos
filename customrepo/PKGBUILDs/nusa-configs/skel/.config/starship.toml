@@ -1,0 +1,57 @@
+# ==============================================================================
+# NusaOS Starship Prompt Configuration
+# Accent: Zamrud Khatulistiwa (Emerald & Teal)
+# ==============================================================================
+
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$package\
+$golang\
+$rust\
+$nodejs\
+$python\
+$docker_context\
+$cmd_duration\
+$line_break\
+$character"""
+
+scan_timeout = 20
+add_newline = true
+
+[character]
+success_symbol = "[➜](bold #00e5a3)"
+error_symbol = "[✗](bold #ff7b72)"
+
+[directory]
+style = "bold #00b48a"
+read_only = " 󰌾"
+truncation_length = 4
+truncate_to_repo = true
+
+[git_branch]
+symbol = " "
+style = "bold #58a6ff"
+
+[git_status]
+style = "bold #ff7b72"
+ahead = "⇡${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+behind = "⇣${count}"
+
+[cmd_duration]
+min_time = 2_000
+style = "bold #d29922"
+format = "took [$duration]($style) "
+
+[username]
+style_user = "bold #8b949e"
+style_root = "bold #ff7b72"
+format = "[$user]($style) "
+
+[hostname]
+ssh_only = true
+format = "on [$hostname](bold #bc8cff) "

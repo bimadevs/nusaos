@@ -1,0 +1,4 @@
+interface:
+  display_name: "Archiso Builder"
+  short_description: "Build, customize, validate, and test custom Arch Linux live ISOs with mkarchiso"
+  default_prompt: "Use $archiso-builder to create and validate a custom Arch Linux ISO profile."

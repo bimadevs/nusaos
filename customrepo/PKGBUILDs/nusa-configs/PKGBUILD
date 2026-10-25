@@ -1,0 +1,17 @@
+# Maintainer: NusaOS Project <https://github.com/nusaos>
+pkgname=nusa-configs
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Default desktop and shell configuration files for NusaOS"
+arch=('any')
+url="https://github.com/nusaos"
+license=('GPL-3.0-or-later')
+depends=('hyprland' 'waybar' 'kitty' 'rofi-wayland' 'starship' 'zsh' 'dunst')
+source=()
+sha256sums=()
+
+package() {
+    # Salin seluruh pohon skel ke /etc/skel/
+    install -d "${pkgdir}/etc/skel"
+    cp -r "${startdir}/skel/." "${pkgdir}/etc/skel/"
+}

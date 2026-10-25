@@ -1,0 +1,39 @@
+# ==============================================================================
+# NusaOS Calamares Branding
+# Theme: Zamrud Khatulistiwa
+# ==============================================================================
+---
+componentName: nusaos
+
+welcomeStyleCalamares: false
+welcomeExpandingLogo: true
+windowExpanding: normal
+windowSize: 960px,560px
+windowPlacement: center
+
+sidebar: widget,left
+navigation: widget
+
+strings:
+    productName:         NusaOS
+    shortProductName:    NusaOS
+    version:             2026.10
+    shortVersion:        2026.10
+    versionedName:       NusaOS 2026.10 ("Zamrud Khatulistiwa")
+    shortVersionedName:  NusaOS 2026.10
+    bootloaderEntryName: NusaOS
+    productUrl:          https://github.com/nusaos
+    supportUrl:          https://github.com/nusaos/community
+    knownIssuesUrl:      https://github.com/nusaos/issues
+    releaseNotesUrl:     https://github.com/nusaos/releases
+
+images:
+    productLogo:         "logo.png"
+    productIcon:         "icon.png"
+    productWelcome:      "welcome.png"
+
+style:
+   SidebarBackground:        "#0d1117"
+   SidebarText:              "#8b949e"
+   SidebarTextCurrent:       "#0d1117"
+   SidebarBackgroundCurrent: "#00e5a3"

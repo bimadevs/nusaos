@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Install NusaOS
+GenericName=Live System Installer
+Comment=Install the NusaOS operating system permanently to disk
+Exec=sudo -E calamares -d
+Icon=nusaos
+Terminal=false
+StartupNotify=true
+Categories=System;

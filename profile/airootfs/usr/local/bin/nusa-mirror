@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# NusaOS Mirror Optimization Utility
+# Benchmarks and sorts Indonesian & regional Arch Linux mirrors
+# ==============================================================================
+set -euo pipefail
+
+MIRRORLIST="/etc/pacman.d/mirrorlist"
+BACKUP_MIRRORLIST="/etc/pacman.d/mirrorlist.bak"
+
+echo "================================================================"
+echo "🇮🇩 NusaOS Mirror Optimization (Indonesia Priority)"
+echo "================================================================"
+
+if [[ $EUID -ne 0 ]]; then
+    echo "❌ Skrip ini membutuhkan hak akses root. Gunakan sudo."
+    exit 1
+fi
+
+echo "Membuat cadangan mirrorlist lama..."
+cp -f "${MIRRORLIST}" "${BACKUP_MIRRORLIST}" 2>/dev/null || true
+
+if command -v reflector >/dev/null 2>&1; then
+    echo "⚡ Menguji kecepatan mirror Indonesia via Reflector..."
+    if reflector --country Indonesia,Singapore --protocol https --latest 10 --sort rate --save "${MIRRORLIST}"; then
+        echo "✅ Mirrorlist berhasil diperbarui dengan mirror tercepat!"
+    else
+        echo "⚠️  Reflector gagal menghubungi server, menerapkan konfigurasi mirror Indonesia bawaan..."
+        cat << 'EOF' > "${MIRRORLIST}"
+## Indonesia Mirrors
+Server = https://mirror.datautama.net.id/archlinux/$repo/os/$arch
+Server = https://mirror.poliwangi.ac.id/archlinux/$repo/os/$arch
+Server = https://mirror.telkomuniversity.ac.id/archlinux/$repo/os/$arch
+Server = http://kartolo.sby.datautama.net.id/archlinux/$repo/os/$arch
+
+## Global Fallbacks
+Server = https://geo.mirror.pkgbuild.com/$repo/os/$arch
+Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch
+EOF
+    fi
+else
+    echo "Menerapkan konfigurasi mirror Indonesia resmi bawaan NusaOS..."
+    cat << 'EOF' > "${MIRRORLIST}"
+## Indonesia Mirrors
+Server = https://mirror.datautama.net.id/archlinux/$repo/os/$arch
+Server = https://mirror.poliwangi.ac.id/archlinux/$repo/os/$arch
+Server = https://mirror.telkomuniversity.ac.id/archlinux/$repo/os/$arch
+Server = http://kartolo.sby.datautama.net.id/archlinux/$repo/os/$arch
+
+## Global Fallbacks
+Server = https://geo.mirror.pkgbuild.com/$repo/os/$arch
+Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch
+EOF
+fi
+
+echo "Memperbarui indeks paket pacman..."
+pacman -Sy || true
+echo "================================================================"
+echo "✅ Optimasi mirror selesai!"

@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# NusaOS Welcome Script
+# Interactive Welcome & Quick Setup Utility
+# ==============================================================================
+set -euo pipefail
+
+# Check if running under Wayland/X11
+if [[ -n "${WAYLAND_DISPLAY:-}" || -n "${DISPLAY:-}" ]]; then
+    # Jika dipanggil dari autostart Hyprland, luncurkan jendela terminal Kitty interaktif
+    if [[ "${1:-}" != "--inside-terminal" ]]; then
+        exec kitty --title "Selamat Datang di NusaOS" --class "nusa-welcome" bash "$0" --inside-terminal
+    fi
+fi
+
+CLEAR_SCREEN=$(clear)
+echo "${CLEAR_SCREEN}"
+cat << "EOF"
+  _   _                 ____   _____ 
+ | \ | |_   _ ___  __ _|  _ \ / ____|
+ |  \| | | | / __|/ _` | | | | (___  
+ | |\  | |_| \__ \ (_| | |_| |\___ \ 
+ |_| \_|\__,_|___/\__,_|____/ |_____/ 
+             ZAMRUD KHATULISTIWA
+EOF
+echo "================================================================"
+echo "🇮🇩 Selamat Datang di NusaOS Live Environment!"
+echo "Distribusi Linux Desktop Modern, Berbasis Arch Linux & Wayland."
+echo "================================================================"
+echo ""
+echo "Pilih opsi di bawah ini untuk memulai:"
+echo " [1] 💿 Mulai Instalasi NusaOS ke Disk (Calamares Installer)"
+echo " [2] 🌐 Uji & Prioritaskan Mirror Indonesia Tercepat (nusa-mirror)"
+echo " [3] 📖 Buka Panduan & Dokumentasi Resmi"
+echo " [4] 🖥️  Luncurkan Terminal Baru (Kitty)"
+echo " [5] 🚪 Tutup dan Masuk ke Desktop"
+echo ""
+read -r -p "Masukkan pilihan Anda [1-5]: " choice
+
+case "${choice}" in
+    1)
+        echo "Meluncurkan Calamares Installer..."
+        sudo -E calamares -d &
+        ;;
+    2)
+        echo "Menjalankan optimasi mirror..."
+        sudo /usr/local/bin/nusa-mirror
+        read -r -p "Tekan [Enter] untuk kembali..."
+        exec "$0" --inside-terminal
+        ;;
+    3)
+        echo "Membuka peramban web..."
+        brave "https://github.com/nusaos" >/dev/null 2>&1 &
+        ;;
+    4)
+        kitty &
+        ;;
+    5)
+        echo "Selamat menikmati NusaOS!"
+        sleep 1
+        exit 0
+        ;;
+    *)
+        echo "Pilihan tidak valid."
+        sleep 1
+        exec "$0" --inside-terminal
+        ;;
+esac

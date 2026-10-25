@@ -1,0 +1,25 @@
+# Maintainer: NusaOS Project <https://github.com/nusaos>
+pkgname=nusa-artwork
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="NusaOS wallpapers, branding icons, and logos ('Zamrud Khatulistiwa')"
+arch=('any')
+url="https://github.com/nusaos"
+license=('GPL-3.0-or-later')
+source=(
+    "zamrud-dark.png"
+    "zamrud-dark.svg"
+    "nusaos-logo.svg"
+)
+sha256sums=('SKIP' 'SKIP' 'SKIP')
+
+package() {
+    # Install Wallpapers
+    install -Dm644 "${srcdir}/zamrud-dark.png" "${pkgdir}/usr/share/backgrounds/nusaos/zamrud-dark.png"
+    install -Dm644 "${srcdir}/zamrud-dark.svg" "${pkgdir}/usr/share/backgrounds/nusaos/zamrud-dark.svg"
+    ln -sf "zamrud-dark.png" "${pkgdir}/usr/share/backgrounds/nusaos/default.png"
+
+    # Install Logos & Pixmaps
+    install -Dm644 "${srcdir}/nusaos-logo.svg" "${pkgdir}/usr/share/pixmaps/nusaos-logo.svg"
+    install -Dm644 "${srcdir}/nusaos-logo.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/nusaos.svg"
+}

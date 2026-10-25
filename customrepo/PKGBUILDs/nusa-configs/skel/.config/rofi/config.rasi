@@ -1,0 +1,97 @@
+/* ==============================================================================
+ * NusaOS Rofi Configuration
+ * Theme: Zamrud Khatulistiwa
+ * ============================================================================== */
+
+configuration {
+    modi: "drun,run,window";
+    font: "Inter 11";
+    show-icons: true;
+    icon-theme: "Papirus";
+    display-drun: "  Apps";
+    display-run: "  Run";
+    display-window: "  Windows";
+    drun-display-format: "{name}";
+}
+
+@theme "/dev/null"
+
+* {
+    bg: #0d1117e6;
+    surface: #161b22;
+    border-col: #00b48a;
+    accent: #00e5a3;
+    fg: #f0f6fc;
+    fg-alt: #8b949e;
+    
+    background-color: transparent;
+    text-color: @fg;
+    margin: 0;
+    padding: 0;
+}
+
+window {
+    width: 640px;
+    background-color: @bg;
+    border: 2px solid @border-col;
+    border-radius: 12px;
+    padding: 20px;
+    location: center;
+}
+
+mainbox {
+    children: [ inputbar, listview ];
+    spacing: 16px;
+}
+
+inputbar {
+    background-color: @surface;
+    border-radius: 8px;
+    border: 1px solid @accent;
+    padding: 10px 14px;
+    children: [ prompt, entry ];
+    spacing: 10px;
+}
+
+prompt {
+    text-color: @accent;
+    font-weight: bold;
+}
+
+entry {
+    placeholder: "Cari aplikasi atau perintah...";
+    placeholder-color: @fg-alt;
+    text-color: @fg;
+}
+
+listview {
+    lines: 7;
+    columns: 1;
+    scrollbar: false;
+    spacing: 6px;
+}
+
+element {
+    padding: 8px 12px;
+    border-radius: 6px;
+    children: [ element-icon, element-text ];
+    spacing: 12px;
+}
+
+element-icon {
+    size: 24px;
+}
+
+element-text {
+    vertical-align: 0.5;
+    text-color: @fg;
+}
+
+element selected {
+    background-color: @accent;
+}
+
+element selected element-text {
+    text-color: #0d1117;
+    font-weight: bold;
+}

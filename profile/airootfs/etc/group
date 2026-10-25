@@ -1,0 +1,13 @@
+root:x:0:root
+sys:x:3:bin,nusa
+adm:x:4:nusa
+wheel:x:988:nusa
+rfkill:x:982:nusa
+input:x:978:nusa
+optical:x:990:nusa
+storage:x:995:nusa
+video:x:986:nusa
+audio:x:996:nusa
+network:x:997:nusa
+autologin:x:998:nusa
+nusa:x:1000:

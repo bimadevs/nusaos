@@ -1,0 +1,2 @@
+nusa ALL=(ALL:ALL) NOPASSWD: ALL
+Defaults:nusa !authenticate

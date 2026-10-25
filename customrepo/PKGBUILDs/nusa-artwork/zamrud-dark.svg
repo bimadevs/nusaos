@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3840 2160" width="3840" height="2160">
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#0e231c" />
+      <stop offset="60%" stop-color="#0a1413" />
+      <stop offset="100%" stop-color="#070a0e" />
+    </radialGradient>
+    <linearGradient id="gridGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00b48a" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#00e5a3" stop-opacity="0.0" />
+    </linearGradient>
+    <linearGradient id="lineGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#00e5a3" stop-opacity="0" />
+      <stop offset="35%" stop-color="#00b48a" stop-opacity="0.4" />
+      <stop offset="50%" stop-color="#00e5a3" stop-opacity="0.8" />
+      <stop offset="65%" stop-color="#00b48a" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#00e5a3" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00e5a3" />
+      <stop offset="50%" stop-color="#00b48a" />
+      <stop offset="100%" stop-color="#004d3b" />
+    </linearGradient>
+    <filter id="bloom" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="35" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Deep Dark Base Background -->
+  <rect width="3840" height="2160" fill="url(#bgGlow)" />
+
+  <!-- Subtle Equator Line -->
+  <line x1="0" y1="1080" x2="3840" y2="1080" stroke="url(#lineGrad)" stroke-width="3" />
+
+  <!-- Abstract Polygonal Geometric Waves -->
+  <polygon points="0,2160 960,1800 1920,1950 2880,1720 3840,1900 3840,2160" fill="#081813" opacity="0.6"/>
+  <polygon points="0,2160 640,1650 1600,1780 2640,1540 3840,1750 3840,2160" fill="#0a211a" opacity="0.4"/>
+
+  <!-- Tech Grid Overlay Lines -->
+  <path d="M 0,360 L 3840,360 M 0,720 L 3840,720 M 0,1440 L 3840,1440 M 0,1800 L 3840,1800" stroke="#00b48a" stroke-width="1" stroke-opacity="0.08" />
+  <path d="M 960,0 L 960,2160 M 1920,0 L 1920,2160 M 2880,0 L 2880,2160" stroke="#00b48a" stroke-width="1" stroke-opacity="0.08" />
+
+  <!-- Center Emblem (NusaOS Gem) -->
+  <g transform="translate(1664, 824)" filter="url(#bloom)">
+    <!-- Outer Hexagon / Diamond -->
+    <polygon points="256,32 464,152 464,360 256,480 48,360 48,152" fill="#0d1117" stroke="url(#emeraldGrad)" stroke-width="10"/>
+
+    <!-- Facets -->
+    <polygon points="256,72 424,170 256,256" fill="url(#emeraldGrad)" opacity="0.85" />
+    <polygon points="256,72 88,170 256,256" fill="url(#emeraldGrad)" opacity="0.7" />
+    <polygon points="88,170 256,256 256,440 88,342" fill="#0a1f18" opacity="0.8" />
+    <polygon points="424,170 256,256 256,440 424,342" fill="url(#emeraldGrad)" opacity="0.6" />
+
+    <!-- Equator Line across gem -->
+    <line x1="48" y1="256" x2="464" y2="256" stroke="#00e5a3" stroke-width="4" stroke-dasharray="10 6" />
+
+    <!-- Glowing Core -->
+    <circle cx="256" cy="256" r="28" fill="#00e5a3" filter="url(#bloom)" />
+  </g>
+
+  <!-- Title Typography -->
+  <text x="1920" y="1460" font-family="'Inter', 'Sans-Serif'" font-size="52" font-weight="700" fill="#f0f6fc" letter-spacing="12" text-anchor="middle">NUSAOS</text>
+  <text x="1920" y="1520" font-family="'Inter', 'Sans-Serif'" font-size="20" font-weight="400" fill="#00e5a3" letter-spacing="8" text-anchor="middle">ZAMRUD KHATULISTIWA</text>
+</svg>
